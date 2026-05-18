@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Isabel Fangyi Lu, PhD</title>
+  <meta name="description" content="Isabel Fangyi Lu, PhD — urban scholar, strategist and author working at the intersection of digital technologies, community action and the built environment." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream:        #FAF8F4;
+      --ink:          #1A1A18;
+      --warm-mid:     #6B6457;
+      --accent:       #B5956A;
+      --moss:         #5C7A5A;
+      --moss-light:   #7FA67D;
+      --rule:         #E2DDD6;
+      /* Deep forest green — sampled from portrait background, lifted for readability */
+      --forest:       #1C2620;
+      --forest-deep:  #161E1A;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--cream);
+      color: var(--ink);
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      font-size: 16px;
+      line-height: 1.75;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── MOSS ANIMATED LINKS — bold weight ── */
+    .moss-link {
+      color: var(--moss);
+      text-decoration: none;
+      font-weight: 500;
+      position: relative;
+      display: inline;
+    }
+    .moss-link::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -1px;
+      width: 0;
+      height: 1px;
+      background: linear-gradient(90deg, var(--moss), var(--moss-light), var(--moss));
+      transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .moss-link:hover { color: var(--moss-light); }
+    .moss-link:hover::after { width: 100%; }
+
+    /* ── NAVIGATION ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 4rem;
+      background: rgba(250, 248, 244, 0.92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.3s;
+    }
+    nav.scrolled { border-color: var(--rule); }
+
+    .nav-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 400;
+      font-size: 1.05rem;
+      letter-spacing: 0.03em;
+      color: var(--ink);
+      text-decoration: none;
+      opacity: 0;
+      animation: fadeIn 1s ease 0.2s forwards;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+      align-items: center;
+    }
+    .nav-links a {
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--warm-mid);
+      text-decoration: none;
+      transition: color 0.2s;
+      opacity: 0;
+      animation: fadeIn 1s ease 0.4s forwards;
+    }
+    .nav-links a:hover { color: var(--ink); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding: 7rem 4rem 4rem;
+      gap: 4rem;
+    }
+
+    .hero-text { max-width: 520px; }
+
+    .hero-eyebrow {
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: slideUp 0.9s ease 0.3s forwards;
+    }
+
+    .hero-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: clamp(2.6rem, 5vw, 4rem);
+      line-height: 1.1;
+      letter-spacing: -0.01em;
+      margin-bottom: 0.5rem;
+      opacity: 0;
+      animation: slideUp 0.9s ease 0.5s forwards;
+    }
+    .hero-name em { font-style: italic; color: var(--warm-mid); }
+
+    .hero-phd {
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      font-size: 0.8rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--warm-mid);
+      margin-bottom: 2rem;
+      opacity: 0;
+      animation: slideUp 0.9s ease 0.6s forwards;
+    }
+
+    .hero-intro {
+      font-size: 1.05rem;
+      line-height: 1.85;
+      color: var(--ink);
+      margin-bottom: 2.5rem;
+      opacity: 0;
+      animation: slideUp 0.9s ease 0.8s forwards;
+    }
+
+    /* ── PORTRAIT ── */
+    .hero-image {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      opacity: 0;
+      animation: fadeIn 1.2s ease 0.6s forwards;
+    }
+
+    .portrait-wrap {
+      position: relative;
+      width: min(420px, 45vw);
+    }
+    .portrait-wrap::before {
+      content: '';
+      position: absolute;
+      inset: -16px -16px 16px 16px;
+      border: 1px solid var(--accent);
+      opacity: 0.35;
+      pointer-events: none;
+    }
+    .portrait-wrap img {
+      width: 100%;
+      display: block;
+      filter: contrast(1.02) brightness(0.98);
+    }
+
+    /* ── DIVIDER ── */
+    .section-divider {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      padding: 0 4rem;
+      margin: 1rem 0;
+    }
+    .section-divider span {
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      white-space: nowrap;
+    }
+    .section-divider::before,
+    .section-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--rule);
+    }
+
+    /* ── ABOUT ── */
+    #about {
+      padding: 5rem 4rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 2.5rem;
+      display: block;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 300px;
+      gap: 5rem;
+      align-items: start;
+    }
+
+    .about-text p {
+      margin-bottom: 1.4rem;
+      font-size: 1rem;
+      line-height: 1.95;
+      color: #2A2A27;
+    }
+    .about-text p:last-child { margin-bottom: 0; }
+
+    /* ── SIDEBAR ── */
+    .about-aside { padding-top: 0.2rem; }
+
+    .credential-block { margin-bottom: 2.2rem; }
+
+    .credential-block h4 {
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.7rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .credential-block p,
+    .credential-block a {
+      font-size: 0.83rem;
+      line-height: 1.65;
+      color: var(--warm-mid);
+      display: block;
+      text-decoration: none;
+      position: relative;
+      transition: color 0.2s;
+      margin-bottom: 0.15rem;
+    }
+    .credential-block a::after {
+      content: '';
+      position: absolute;
+      left: 0; bottom: -1px;
+      width: 0; height: 1px;
+      background: linear-gradient(90deg, var(--moss), var(--moss-light));
+      transition: width 0.3s ease;
+    }
+    .credential-block a:hover { color: var(--moss); }
+    .credential-block a:hover::after { width: 100%; }
+
+    /* ── PUBLICATIONS — forest green background ── */
+    #publications {
+      background: var(--forest);
+      padding: 5rem 4rem;
+    }
+    #publications .section-label { color: var(--accent); }
+
+    .pub-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .pub-note {
+      font-size: 0.82rem;
+      color: rgba(242, 237, 228, 0.4);
+      margin-bottom: 2.5rem;
+      font-style: italic;
+    }
+    .pub-note a {
+      color: var(--moss-light);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(143, 184, 141, 0.3);
+      transition: border-color 0.2s;
+    }
+    .pub-note a:hover { border-color: var(--moss-light); }
+
+    .pub-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+    }
+
+    .pub-card {
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding-top: 2rem;
+    }
+
+    .pub-type {
+      font-size: 0.62rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .pub-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 400;
+      font-size: 1.4rem;
+      line-height: 1.35;
+      color: #F2EDE4;
+      margin-bottom: 0.8rem;
+      font-style: italic;
+    }
+
+    .pub-meta {
+      font-size: 0.8rem;
+      color: rgba(242, 237, 228, 0.45);
+      margin-bottom: 1.2rem;
+      line-height: 1.6;
+    }
+
+    .pub-desc {
+      font-size: 0.88rem;
+      line-height: 1.8;
+      color: rgba(242, 237, 228, 0.65);
+      margin-bottom: 1.5rem;
+    }
+
+    .pub-link {
+      font-size: 0.68rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--moss-light);
+      text-decoration: none;
+      position: relative;
+    }
+    .pub-link::after {
+      content: '';
+      position: absolute;
+      left: 0; bottom: -2px;
+      width: 0; height: 1px;
+      background: var(--moss-light);
+      transition: width 0.3s ease;
+    }
+    .pub-link:hover::after { width: 100%; }
+
+    /* ── CONTACT ── */
+    #contact {
+      text-align: center;
+      padding: 6rem 4rem;
+    }
+
+    .contact-heading {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: clamp(2rem, 4vw, 3rem);
+      line-height: 1.2;
+      margin-bottom: 1.2rem;
+      color: var(--ink);
+    }
+    .contact-heading em { font-style: italic; color: var(--warm-mid); }
+
+    .contact-sub {
+      font-size: 0.95rem;
+      color: var(--warm-mid);
+      margin-bottom: 3rem;
+      max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .contact-links {
+      display: flex;
+      justify-content: center;
+      gap: 2.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 3.5rem;
+    }
+
+    .contact-link {
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink);
+      text-decoration: none;
+      position: relative;
+    }
+    .contact-link::after {
+      content: '';
+      position: absolute;
+      left: 0; bottom: -2px;
+      width: 0; height: 1px;
+      background: linear-gradient(90deg, var(--moss), var(--moss-light));
+      transition: width 0.3s ease;
+    }
+    .contact-link:hover { color: var(--moss); }
+    .contact-link:hover::after { width: 100%; }
+
+    /* ── CAT + VENI CLUSTER ── */
+    .cat-cluster {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .cat-btn {
+      background: none;
+      border: 1px solid var(--rule);
+      color: var(--warm-mid);
+      font-family: 'Jost', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 300;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      padding: 0.55rem 1.2rem;
+      cursor: pointer;
+      transition: border-color 0.25s, color 0.25s;
+      user-select: none;
+    }
+    .cat-btn:hover { border-color: var(--warm-mid); color: var(--ink); }
+
+    .veni-link {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 0.82rem;
+      color: var(--warm-mid);
+      text-decoration: none;
+      border-bottom: 1px dotted var(--accent);
+      padding-bottom: 1px;
+      transition: color 0.2s;
+      letter-spacing: 0.02em;
+    }
+    .veni-link:hover { color: var(--accent); }
+
+    /* ── PAW PRINTS ── */
+    .paw {
+      position: fixed;
+      font-size: 1.3rem;
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0;
+      animation: pawAppear 2.4s ease forwards;
+      animation-delay: var(--delay, 0s);
+    }
+
+    @keyframes pawAppear {
+      0%   { opacity: 0; transform: scale(0.4) rotate(var(--rot,0deg)); }
+      25%  { opacity: 1; transform: scale(1)   rotate(var(--rot,0deg)); }
+      75%  { opacity: 0.8; }
+      100% { opacity: 0; transform: scale(0.8) rotate(var(--rot,0deg)); }
+    }
+
+    /* ── FOOTER — deeper forest green ── */
+    footer {
+      background: var(--forest-deep);
+      padding: 2.5rem 4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .footer-acknowledge {
+      font-size: 0.78rem;
+      color: rgba(242, 237, 228, 0.45);
+      max-width: 580px;
+      line-height: 1.7;
+    }
+
+    .footer-copy {
+      font-size: 0.72rem;
+      color: rgba(242, 237, 228, 0.3);
+      letter-spacing: 0.06em;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 960px) {
+      nav { padding: 1.2rem 2rem; }
+
+      .hero {
+        grid-template-columns: 1fr;
+        padding: 7rem 2rem 3rem;
+        gap: 3rem;
+        text-align: center;
+      }
+      .hero-text { max-width: 100%; }
+      .hero-image { justify-content: center; }
+      .portrait-wrap { width: min(320px, 80vw); }
+
+      .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .pub-grid   { grid-template-columns: 1fr; gap: 2.5rem; }
+
+      #about, #publications, #contact, footer {
+        padding-left: 2rem;
+        padding-right: 2rem;
+      }
+      .section-divider { padding: 0 2rem; }
+      footer { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav id="nav">
+    <a href="#" class="nav-name">Isabel Fangyi Lu, PhD</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#publications">Books</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-text">
+      <p class="hero-eyebrow">Urban Scholar · Strategist · Author</p>
+      <h1 class="hero-name">Isabel<br><em>Fangyi Lu</em></h1>
+      <p class="hero-phd">PhD</p>
+      <p class="hero-intro">
+        I work at the intersection of place, technology and civic life — particularly drawn to moments when community imagination outruns institutional design.
+      </p>
+    </div>
+
+    <div class="hero-image">
+      <div class="portrait-wrap">
+        <img src="IMG_5759.jpeg" alt="Isabel Fangyi Lu" />
+      </div>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <div class="section-divider"><span>About</span></div>
+  <section id="about">
+    <span class="section-label">About</span>
+    <div class="about-grid">
+
+      <div class="about-text">
+        <p>
+          I'm an urban scholar, strategist and author with a passion for the generative space where communities, institutions and digital life reshape each other. I've worked across academic, government and community organisations, committed to designing better systems and building stronger networks.
+        </p>
+
+        <p>
+          My monograph, <a href="https://www.routledge.com/Reassembling-Digital-Placemaking-Participation-and-Politics/Lu/p/book/9781032527048" target="_blank" rel="noopener" class="moss-link">Reassembling Digital Placemaking: Participation and Politics</a>, explores how communities, industries and governments co-produce urban space, and what that means for participation and democracy. Drawing on cases from Australia, China and Taiwan, it examines <a href="https://www.linkedin.com/search/results/all/?keywords=%23placemaking&origin=HASH_TAG_FROM_FEED" target="_blank" rel="noopener" class="moss-link">#placemaking</a> as a testing ground for urban politics, proposing a tripartite assemblage model of urban politics as issue-based, sociotechnically-enabled, relational and cosmopolitical. My co-edited volume with <a href="http://nikos.papastergiadis.com/" target="_blank" rel="noopener" class="moss-link">Nikos Papastergiadis</a> and Danielle Wyatt, <em>Place without Borders: Arts Precincts and Public Culture in Victoria</em>, is forthcoming in 2026.
+        </p>
+
+        <p>
+          In practice, I apply this thinking as Senior Advisor at Victoria's Department of Education, leading strategic planning and partnerships for <a href="https://www.vic.gov.au/tech-schools" target="_blank" rel="noopener" class="moss-link">Tech Schools</a>, a state-wide school centres of innovation network. Traditional education flows knowledge downward from centralised pedagogy and intellectual authorities. Tech Schools invert this: the places hold the knowledge, government brings students into that space, and students co-design problems and solutions guided by communities and industry experts.
+        </p>
+
+        <p>
+          Beyond government, I'm increasingly drawn to how place-based and regenerative communities find their footing and voice within the institutions that resource them. I work through my own practice, <a href="/ouro.html" class="moss-link">Ouro</a>, with place-based and regenerative communities navigating institutional systems.
+        </p>
+
+        <p>
+          With my partner and our cat Ophelia, I commute between Naarm (Melbourne) and regional Victoria — proud owner and supporter of <a href="https://www.passivehouseaustralia.org/" target="_blank" rel="noopener" class="moss-link">Passive House</a>. I welcome collaboration on research, writing and strategic projects in English and Mandarin. <a href="mailto:isabelfangyilu@gmail.com" class="moss-link">Drop a line</a>.
+        </p>
+      </div>
+
+      <!-- SIDEBAR -->
+      <aside class="about-aside">
+
+        <div class="credential-block">
+          <h4>Research Profiles</h4>
+          <a href="https://orcid.org/0000-0002-7363-6427" target="_blank" rel="noopener">ORCID</a>
+          <a href="https://scholar.google.com/citations?hl=en&authuser=1&user=eqex-MgAAAAJ" target="_blank" rel="noopener">Google Scholar</a>
+          <a href="https://www.researchgate.net/profile/Isabel-Fangyi-Lu" target="_blank" rel="noopener">ResearchGate</a>
+        </div>
+
+        <div class="credential-block">
+          <h4>Affiliations</h4>
+          <p>Honorary Fellow, School of Culture and Communication, University of Melbourne</p>
+          <p>Senior Advisor, Victorian Department of Education</p>
+        </div>
+
+        <div class="credential-block">
+          <h4>Certifications</h4>
+          <a href="https://mhfa.com.au/" target="_blank" rel="noopener">Accredited Mental Health First Aider</a>
+          <a href="https://iap2.org.au/" target="_blank" rel="noopener">IAP2 Community Engagement</a>
+          <a href="https://www.axelos.com/certifications/propath/prince2-project-management" target="_blank" rel="noopener">PRINCE2 Project Management</a>
+        </div>
+
+        <div class="credential-block">
+          <h4>Mentoring</h4>
+          <a href="https://mentoring.unimelb.edu.au/p/p10" target="_blank" rel="noopener">Ask Alumni, University of Melbourne</a>
+        </div>
+
+      </aside>
+    </div>
+  </section>
+
+  <!-- PUBLISHED BOOKS -->
+  <section id="publications">
+    <div class="pub-inner">
+      <span class="section-label">Published Books</span>
+      <p class="pub-note">
+        For journal articles, book chapters and other publications, see my
+        <a href="https://scholar.google.com/citations?hl=en&authuser=1&user=eqex-MgAAAAJ" target="_blank" rel="noopener">Google Scholar</a>
+        or <a href="https://orcid.org/0000-0002-7363-6427" target="_blank" rel="noopener">ORCID</a> profile.
+      </p>
+      <div class="pub-grid">
+
+        <div class="pub-card">
+          <span class="pub-type">Monograph</span>
+          <p class="pub-title">Reassembling Digital Placemaking: Participation and Politics</p>
+          <p class="pub-meta">Routledge, 2025</p>
+          <p class="pub-desc">
+            Presents digital placemaking as a new testing ground for urban democracy. Drawing on cases from Australia, China and Taiwan, it proposes a tripartite assemblage model of urban politics — issue-based, sociotechnically-enabled, relational and cosmopolitical.
+          </p>
+          <a href="https://www.routledge.com/Reassembling-Digital-Placemaking-Participation-and-Politics/Lu/p/book/9781032527048" target="_blank" rel="noopener" class="pub-link">View at Routledge</a>
+        </div>
+
+        <div class="pub-card">
+          <span class="pub-type">Edited Volume · Forthcoming</span>
+          <p class="pub-title">Place without Borders: Arts Precincts and Public Culture in Victoria</p>
+          <p class="pub-meta">Co-edited with Nikos Papastergiadis and Danielle Wyatt<br>Surpllus (Melbourne), 2026</p>
+          <p class="pub-desc">
+            An exploration of arts precincts as sites of public culture, civic identity and contested placemaking in Victoria — examining how cultural infrastructure shapes and is shaped by its communities.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <h2 class="contact-heading">Let's start a<br><em>conversation</em></h2>
+    <p class="contact-sub">
+      Open to collaboration on research, writing, strategy and place-based projects.
+    </p>
+    <div class="contact-links">
+      <a href="mailto:isabelfangyilu@gmail.com" class="contact-link">Email</a>
+      <a href="https://www.linkedin.com/in/isabel-fangyi-lu/" target="_blank" rel="noopener" class="contact-link">LinkedIn</a>
+      <a href="https://orcid.org/0000-0002-7363-6427" target="_blank" rel="noopener" class="contact-link">ORCID</a>
+      <a href="https://scholar.google.com/citations?hl=en&authuser=1&user=eqex-MgAAAAJ" target="_blank" rel="noopener" class="contact-link">Google Scholar</a>
+    </div>
+
+    <div class="cat-cluster">
+      <button class="cat-btn" id="catBtn" ondblclick="spawnCat()">double click for 🐾</button>
+      <a href="/ouro.html" class="veni-link">Veni, vidi, vici. Vegemite.</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p class="footer-acknowledge">
+      I acknowledge the Traditional Owners of the land where I live and work, the Wurundjeri people and the Bunurong people, and pay my respects to Elders past and present.
+    </p>
+    <p class="footer-copy">©2026 by Isabel Fangyi Lu. All rights reserved.</p>
+  </footer>
+
+  <script>
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 40);
+    });
+
+    function spawnCat() {
+      const count = 9;
+      const goRight = Math.random() > 0.5;
+      const baseY = Math.random() * (window.innerHeight * 0.55) + window.innerHeight * 0.15;
+
+      const cat = document.createElement('div');
+      cat.style.cssText = `
+        position: fixed; font-size: 2.2rem; z-index: 9999;
+        pointer-events: none; top: ${baseY - 28}px; opacity: 1;
+      `;
+      cat.textContent = '🐈‍⬛';
+      cat.style.left = goRight ? '-70px' : (window.innerWidth + 70) + 'px';
+      if (goRight) cat.style.transform = 'scaleX(-1)';
+      document.body.appendChild(cat);
+
+      cat.style.transition = 'left 2.8s cubic-bezier(0.3, 0, 0.7, 1)';
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        cat.style.left = goRight ? (window.innerWidth + 80) + 'px' : '-80px';
+      }));
+
+      for (let i = 0; i < count; i++) {
+        const paw = document.createElement('div');
+        paw.className = 'paw';
+        const xPos = goRight
+          ? (i / count) * window.innerWidth + 40
+          : window.innerWidth - (i / count) * window.innerWidth - 40;
+        paw.style.cssText = `
+          left: ${xPos}px; top: ${baseY + (Math.random() - 0.5) * 28}px;
+          --rot: ${(Math.random() - 0.5) * 30}deg; --delay: ${i * 0.2}s;
+          filter: grayscale(1) brightness(0.1);
+        `;
+        paw.textContent = '🐾';
+        document.body.appendChild(paw);
+        setTimeout(() => paw.remove(), 3200);
+      }
+
+      setTimeout(() => cat.remove(), 3500);
+      const btn = document.getElementById('catBtn');
+      btn.textContent = '🐾 🐾 🐾';
+      setTimeout(() => { btn.textContent = 'double click for 🐾'; }, 3000);
+    }
+  </script>
+
+</body>
+</html>

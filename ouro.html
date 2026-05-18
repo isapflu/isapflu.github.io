@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ouro — Isabel Fangyi Lu</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@300;400&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:         #1C2620;
+      --surface:    #243028;
+      --cream:      #F2EDE4;
+      --warm-mid:   #9A9082;
+      --moss:       #6B8F69;
+      --moss-light: #8FB88D;
+      --accent:     #B5956A;
+      --rule:       rgba(255,255,255,0.08);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--cream);
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      font-size: 16px;
+      line-height: 1.85;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+    }
+
+    .back {
+      position: fixed;
+      top: 2rem; left: 2.5rem;
+      font-size: 0.65rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--warm-mid);
+      text-decoration: none;
+      transition: color 0.2s;
+      z-index: 10;
+    }
+    .back:hover { color: var(--cream); }
+
+    .ouro-hero {
+      padding: 7rem 2.5rem 2rem;
+      max-width: 760px;
+      margin: 0 auto;
+      opacity: 0;
+      animation: rise 1s ease 0.2s forwards;
+    }
+
+    .ouro-epigraph {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+      font-weight: 300;
+      line-height: 1.3;
+      color: var(--cream);
+      margin-bottom: 0.5rem;
+    }
+
+    .ouro-sub {
+      font-size: 0.72rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--moss);
+    }
+
+    .ouro-body {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 1rem 2.5rem 6rem;
+    }
+
+    .ouro-rule {
+      border: none;
+      border-top: 1px solid var(--rule);
+      margin: 3rem 0;
+    }
+
+    .ouro-section {
+      opacity: 0;
+      animation: rise 1s ease var(--d, 0.6s) forwards;
+    }
+
+    .ouro-label {
+      font-size: 0.62rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--moss);
+      margin-bottom: 1.2rem;
+      display: block;
+    }
+
+    .ouro-section p {
+      font-size: 1rem;
+      line-height: 1.95;
+      color: rgba(242, 237, 228, 0.82);
+      margin-bottom: 1.2rem;
+    }
+    .ouro-section p:last-child { margin-bottom: 0; }
+
+    .ouro-section p em {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 1.06em;
+      color: var(--cream);
+    }
+
+    .ouro-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+      margin-top: 0.5rem;
+    }
+
+    .ouro-list li {
+      font-size: 0.92rem;
+      color: rgba(242, 237, 228, 0.72);
+      padding-left: 1.3rem;
+      position: relative;
+      line-height: 1.7;
+    }
+    .ouro-list li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--moss);
+    }
+
+    .ouro-contact {
+      margin-top: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .ouro-contact a {
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--moss-light);
+      text-decoration: none;
+      position: relative;
+      display: inline-block;
+    }
+    .ouro-contact a::after {
+      content: '';
+      position: absolute;
+      left: 0; bottom: -2px;
+      width: 0; height: 1px;
+      background: var(--moss-light);
+      transition: width 0.3s ease;
+    }
+    .ouro-contact a:hover::after { width: 100%; }
+
+    .photo-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.2rem;
+      margin-top: 1.5rem;
+    }
+
+    .photo-slot {
+      aspect-ratio: 4/3;
+      background: var(--surface);
+      border: 1px solid var(--rule);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 0.5rem;
+      color: var(--warm-mid);
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .photo-slot .slot-icon { font-size: 1.8rem; opacity: 0.35; }
+
+    .ouro-coda {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      color: var(--moss-light);
+      font-style: italic;
+      text-align: center;
+      padding: 2.5rem 0 1rem;
+      letter-spacing: 0.04em;
+      opacity: 0;
+      animation: rise 1s ease 2s forwards;
+    }
+
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 600px) {
+      .ouro-hero, .ouro-body { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .photo-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <a href="/" class="back">← back</a>
+
+  <div class="ouro-hero">
+    <p class="ouro-epigraph">Veni, vidi, vici.<br>Vegemite.</p>
+    <p class="ouro-sub">You found it. Welcome to Ouro.</p>
+  </div>
+
+  <div class="ouro-body">
+
+    <div class="ouro-section" style="--d: 0.5s">
+      <span class="ouro-label">Where the name comes from</span>
+      <p>
+        The ouroboros — the ancient image of a snake eating its own tail — appears in my book as a conceptual anchor for digital placemaking studies. It represents the relational, cyclical nature of urban politics: institutions and communities and technologies continuously reconstituting each other, never arriving at a final state.
+      </p>
+      <p>
+        <em>Ouro</em> is that idea made into a practice. A commitment to working with communities and institutions in the ongoing, unfinished, generative process of place — not delivering solutions, but helping people navigate the systems that shape where and how they live.
+      </p>
+    </div>
+
+    <hr class="ouro-rule" />
+
+    <div class="ouro-section" style="--d: 0.8s">
+      <span class="ouro-label">What Ouro does</span>
+      <p>
+        Ouro works with place-based and regenerative communities navigating institutional systems — helping them articulate their vision, access resources, and build relationships with the governments and organisations that can support their work.
+      </p>
+      <ul class="ouro-list">
+        <li>Strategic advisory for community-led and regenerative initiatives</li>
+        <li>Government relations, grant navigation and funding strategy</li>
+        <li>Research, writing and policy translation</li>
+        <li>Facilitation at the intersection of civic, institutional and community actors</li>
+      </ul>
+    </div>
+
+    <hr class="ouro-rule" />
+
+    <div class="ouro-section" style="--d: 1.1s">
+      <span class="ouro-label">Grounded in place</span>
+      <p>
+        Ouro is rooted in regional Victoria — South Gippsland specifically — and connected to the wider ecosystem of people working on regenerative futures in communities across the state. The physical embeddedness matters: this isn't advisory work parachuted in from the city. It grows from being here, knowing the neighbours, understanding the land.
+      </p>
+
+      <div class="photo-grid">
+        <div class="photo-slot">
+          <span class="slot-icon">🌿</span>
+          <span>place photo</span>
+        </div>
+        <div class="photo-slot">
+          <span class="slot-icon">🏡</span>
+          <span>place photo</span>
+        </div>
+      </div>
+    </div>
+
+    <hr class="ouro-rule" />
+
+    <div class="ouro-section" style="--d: 1.4s">
+      <span class="ouro-label">The person behind it</span>
+      <p>
+        I'm Isabel. I wrote the book on digital placemaking — literally — and spent years inside government learning how institutions actually work versus how they're supposed to. Ouro is what happens when those two things combine with the decision to actually live in the places I care about.
+      </p>
+      <p>
+        I tend a garden, commute between Melbourne and South Gippsland, and share a Passive House with my partner and our cat Ophelia, who has opinions about everything. I restore via Chinese audiobooks and long drives through the Strzelecki Ranges.
+      </p>
+      <p>
+        I'm particularly drawn to Hannah Arendt's idea of natality — the capacity to begin something genuinely new — and Bruno Latour's insistence that the social is always being assembled, never finished. Ouro is an attempt to work from those convictions rather than just write about them.
+      </p>
+    </div>
+
+    <hr class="ouro-rule" />
+
+    <div class="ouro-section" style="--d: 1.7s">
+      <span class="ouro-label">Get in touch</span>
+      <p>
+        Ouro is early. If you're working on something place-based and regenerative — or if you think there's something worth talking about — I'd like to hear from you.
+      </p>
+      <div class="ouro-contact">
+        <a href="mailto:isabelfangyilu@gmail.com">isabelfangyilu@gmail.com</a>
+        <a href="https://www.linkedin.com/in/isabel-fangyi-lu/" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+    </div>
+
+    <p class="ouro-coda">此处是给真正好奇的人。你好。🐾</p>
+
+  </div>
+
+</body>
+</html>
