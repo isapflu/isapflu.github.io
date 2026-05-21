@@ -4,8 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Ouro — Isabel Fangyi Lu</title>
-  <link rel="icon" type="image/png" href="ouro-favicon.png">
   <meta name="robots" content="noindex, nofollow" />
+  <link rel="icon" type="image/png" href="ouro-favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@300;400&display=swap" rel="stylesheet" />
@@ -37,6 +37,25 @@
       min-height: 100vh;
     }
 
+    /* ── MOSS LINKS ── */
+    .moss-link {
+      color: var(--moss-light);
+      text-decoration: none;
+      font-weight: 400;
+      position: relative;
+      display: inline;
+    }
+    .moss-link::after {
+      content: '';
+      position: absolute;
+      left: 0; bottom: -1px;
+      width: 0; height: 1px;
+      background: linear-gradient(90deg, var(--moss), var(--moss-light));
+      transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .moss-link:hover { color: var(--cream); }
+    .moss-link:hover::after { width: 100%; }
+
     .back {
       position: fixed;
       top: 2rem; left: 2.5rem;
@@ -56,6 +75,13 @@
       margin: 0 auto;
       opacity: 0;
       animation: rise 1s ease 0.2s forwards;
+    }
+
+    .ouro-logo {
+      width: 72px;
+      opacity: 0.9;
+      margin-bottom: 1.5rem;
+      display: block;
     }
 
     .ouro-epigraph {
@@ -215,25 +241,33 @@
   <a href="/" class="back">← back</a>
 
   <div class="ouro-hero">
-    <img src="ouro-favicon.png" alt="Studio Ouro" style="width: 72px; opacity: 0.9; margin-bottom: 1.5rem; display: block;">
-    <p class="ouro-epigraph">You found it. Welcome to Ouro.</p>
-    <p class="ouro-sub">Veni, vidi, vici.<br>Vegemite.</p>
+    <img src="ouro-favicon.png" alt="Studio Ouro" class="ouro-logo" />
+    <p class="ouro-epigraph">Veni, vidi, vici.<br>Vegemite.</p>
+    <p class="ouro-sub">You found it. Welcome to Ouro.</p>
   </div>
 
   <div class="ouro-body">
 
+    <!-- WHERE THE NAME COMES FROM -->
     <div class="ouro-section" style="--d: 0.5s">
       <span class="ouro-label">Where the name comes from</span>
+
       <p>
-        The ouroboros — the ancient image of a snake eating its own tail — appears in my book as a conceptual anchor for digital placemaking studies. It represents the relational, cyclical nature of urban politics: institutions and communities and technologies continuously reconstituting each other, never arriving at a final state.
+        Digital placemaking is how communities, industries and governments co-produce the spaces we inhabit — through urban design, cultural programming, civic technology, community engagement and governance. It is also, increasingly, how the largest transitions of our time play out on the ground: renewable energy infrastructure landing in farming communities, data systems reshaping local decision-making, regenerative economies trying to take root in places the old economy left behind. These aren't purely technical questions. They are political, relational and deeply place-specific.
       </p>
+
       <p>
-        <em>Ouro</em> is that idea made into a practice. A commitment to working with communities and institutions in the ongoing, unfinished, generative process of place — not delivering solutions, but helping people navigate the systems that shape where and how they live.
+        The ouroboros — a snake eating its own tail — is an ancient symbol of cycles, regeneration and the continuity of beginnings and endings. In <a href="https://www.routledge.com/Reassembling-Digital-Placemaking-Participation-and-Politics/Lu/p/book/9781032527048" target="_blank" rel="noopener" class="moss-link">my book</a> it became a model for how urban politics actually works: not a battle between fixed sides, but a relational process of nuance, contingency and complexity in flux. Issues emerge, publics form, institutions respond, solutions get absorbed into routine — and new issues arise from within that very routine. The snake doesn't simply return to where it started. It iterates. It holds what Arendt called <a href="https://plato.stanford.edu/entries/arendt/" target="_blank" rel="noopener" class="moss-link"><em>natality</em></a>: the capacity for genuinely new beginnings, without the guarantee of them.
+      </p>
+
+      <p>
+        <em>Ouro</em> is that idea made into a practice. A commitment to working in the generative space where communities, institutions and digital life reshape each other — not delivering solutions, but helping communities find their footing, their voice, and their line of flight within the systems that govern them.
       </p>
     </div>
 
     <hr class="ouro-rule" />
 
+    <!-- WHAT OURO DOES -->
     <div class="ouro-section" style="--d: 0.8s">
       <span class="ouro-label">What Ouro does</span>
       <p>
@@ -249,6 +283,7 @@
 
     <hr class="ouro-rule" />
 
+    <!-- GROUNDED IN PLACE -->
     <div class="ouro-section" style="--d: 1.1s">
       <span class="ouro-label">Grounded in place</span>
       <p>
@@ -269,28 +304,30 @@
 
     <hr class="ouro-rule" />
 
+    <!-- THE PERSON BEHIND IT -->
     <div class="ouro-section" style="--d: 1.4s">
       <span class="ouro-label">The person behind it</span>
       <p>
-        I'm Isabel. I wrote the book on digital placemaking — literally — and spent years inside government learning how institutions actually work versus how they're supposed to. Ouro is what happens when those two things combine with the decision to actually live in the places I care about.
+        I'm Isabel. I wrote <a href="https://www.routledge.com/Reassembling-Digital-Placemaking-Participation-and-Politics/Lu/p/book/9781032527048" target="_blank" rel="noopener" class="moss-link">a book on digital placemaking</a>, and spent years inside government learning how institutions actually work versus how they're supposed to. Ouro is what happens when those two things meet the decision to actually live in the places I care about.
       </p>
       <p>
-        I tend a garden, commute between Melbourne and South Gippsland, and share a Passive House with my partner and our cat Ophelia, who has opinions about everything. I restore via Chinese audiobooks and long drives through the Strzelecki Ranges.
+        I commute between Melbourne and South Gippsland, and share a Passive House with my partner and our cat Ophelia, who, like me, practices critical pragmatism. I decompress with long hikes through <a href="https://www.parks.vic.gov.au/places-to-see/parks/wilsons-promontory-national-park" target="_blank" rel="noopener" class="moss-link">Wilsons Prom</a>, <a href="https://www.basscoastlandcare.org.au/" target="_blank" rel="noopener" class="moss-link">landcare groups</a>, and the occasional painting that goes nowhere in particular.
       </p>
       <p>
-        I'm particularly drawn to Hannah Arendt's idea of natality — the capacity to begin something genuinely new — and Bruno Latour's insistence that the social is always being assembled, never finished. Ouro is an attempt to work from those convictions rather than just write about them.
+        <a href="https://plato.stanford.edu/entries/arendt/" target="_blank" rel="noopener" class="moss-link">Arendt</a>'s <em>natality</em> — the capacity to begin something genuinely new — and Latour's insistence that the social is always being assembled, never finished, are the convictions Ouro tries to practice in reality.
       </p>
     </div>
 
     <hr class="ouro-rule" />
 
+    <!-- GET IN TOUCH -->
     <div class="ouro-section" style="--d: 1.7s">
       <span class="ouro-label">Get in touch</span>
       <p>
         Ouro is early. If you're working on something place-based and regenerative — or if you think there's something worth talking about — I'd like to hear from you.
       </p>
       <div class="ouro-contact">
-        <a href="mailto:isabelfangyilu@gmail.com">isabelfangyilu@gmail.com</a>
+        <a href="mailto:hellostudioouro@gmail.com">hellostudioouro@gmail.com</a>
         <a href="https://www.linkedin.com/in/isabel-fangyi-lu/" target="_blank" rel="noopener">LinkedIn</a>
       </div>
     </div>
