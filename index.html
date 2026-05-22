@@ -27,6 +27,23 @@
     }
 
     html { scroll-behavior: smooth; }
+    /* ── CUSTOM ROTATING CURSOR ── */
+body { cursor: none; }
+
+.ouro-cursor {
+  position: fixed;
+  width: 28px;
+  height: 28px;
+  pointer-events: none;
+  z-index: 99999;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+@media (max-width: 960px) {
+  body { cursor: auto; }
+  .ouro-cursor { display: none; }
+}
 
     body {
       background: var(--cream);
@@ -535,6 +552,7 @@
 <body>
 
   <!-- NAV -->
+  <img src="ouro-favicon.png" class="ouro-cursor" id="ouroCursor" alt="" />
   <nav id="nav">
     <a href="#" class="nav-name">Isabel Fangyi Lu, PhD</a>
     <ul class="nav-links">
@@ -677,6 +695,39 @@
   </footer>
 
   <script>
+    // ── ROTATING OURO CURSOR ──
+const cursor = document.getElementById('ouroCursor');
+let mouseX = 0, mouseY = 0;
+let angle = 0;
+let lastX = 0, lastY = 0;
+let targetSpeed = 0.8;
+let currentSpeed = 0.8;
+
+document.addEventListener('mousemove', (e) => {
+  mouseX = e.clientX;
+  mouseY = e.clientY;
+  cursor.style.opacity = '1';
+  const dx = mouseX - lastX;
+  const dy = mouseY - lastY;
+  const dist = Math.sqrt(dx * dx + dy * dy);
+  targetSpeed = Math.min(0.8 + dist * 0.15, 8);
+  lastX = mouseX;
+  lastY = mouseY;
+});
+
+document.addEventListener('mouseleave', () => {
+  cursor.style.opacity = '0';
+});
+
+(function animate() {
+  currentSpeed += (targetSpeed - currentSpeed) * 0.08;
+  targetSpeed += (0.8 - targetSpeed) * 0.05;
+  angle += currentSpeed;
+  cursor.style.left = mouseX + 'px';
+  cursor.style.top = mouseY + 'px';
+  cursor.style.transform = `translate(-50%, -50%) rotate(${angle}deg)`;
+  requestAnimationFrame(animate);
+})();
     const nav = document.getElementById('nav');
     window.addEventListener('scroll', () => {
       nav.classList.toggle('scrolled', window.scrollY > 40);
