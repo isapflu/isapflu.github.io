@@ -26,6 +26,7 @@
 
     html { scroll-behavior: smooth; }
 
+    /* Hide default cursor — replaced by rotating ouro */
     body {
       background: var(--bg);
       color: var(--cream);
@@ -35,6 +36,19 @@
       line-height: 1.85;
       -webkit-font-smoothing: antialiased;
       min-height: 100vh;
+      cursor: none;
+    }
+
+    /* ── CUSTOM ROTATING CURSOR ── */
+    .ouro-cursor {
+      position: fixed;
+      width: 32px;
+      height: 32px;
+      pointer-events: none;
+      z-index: 99999;
+      transform: translate(-50%, -50%) rotate(0deg);
+      transition: transform 0.08s linear;
+      opacity: 0;
     }
 
     /* ── MOSS LINKS ── */
@@ -56,6 +70,7 @@
     .moss-link:hover { color: var(--cream); }
     .moss-link:hover::after { width: 100%; }
 
+    /* ── BACK LINK ── */
     .back {
       position: fixed;
       top: 2rem; left: 2.5rem;
@@ -69,6 +84,7 @@
     }
     .back:hover { color: var(--cream); }
 
+    /* ── HERO ── */
     .ouro-hero {
       padding: 7rem 2.5rem 2rem;
       max-width: 760px;
@@ -84,6 +100,14 @@
       display: block;
     }
 
+    .ouro-sub {
+      font-size: 0.72rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--moss);
+      margin-bottom: 0.8rem;
+    }
+
     .ouro-epigraph {
       font-family: 'Cormorant Garamond', serif;
       font-style: italic;
@@ -91,16 +115,9 @@
       font-weight: 300;
       line-height: 1.3;
       color: var(--cream);
-      margin-bottom: 0.5rem;
     }
 
-    .ouro-sub {
-      font-size: 0.72rem;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--moss);
-    }
-
+    /* ── BODY ── */
     .ouro-body {
       max-width: 760px;
       margin: 0 auto;
@@ -142,6 +159,17 @@
       color: var(--cream);
     }
 
+    /* Opening line — slightly more prominent */
+    .ouro-opening {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 1.15rem;
+      color: var(--cream);
+      margin-bottom: 1.6rem;
+      line-height: 1.7;
+    }
+
+    /* ── WHAT OURO DOES LIST ── */
     .ouro-list {
       list-style: none;
       display: flex;
@@ -164,6 +192,25 @@
       color: var(--moss);
     }
 
+    /* ── PHOTO GRID ── */
+    .photo-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.2rem;
+      margin-top: 1.5rem;
+    }
+
+    .photo-grid img {
+      width: 100%;
+      display: block;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      opacity: 0.88;
+      transition: opacity 0.3s ease;
+    }
+    .photo-grid img:hover { opacity: 1; }
+
+    /* ── CONTACT ── */
     .ouro-contact {
       margin-top: 1rem;
       display: flex;
@@ -190,29 +237,7 @@
     }
     .ouro-contact a:hover::after { width: 100%; }
 
-    .photo-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1.2rem;
-      margin-top: 1.5rem;
-    }
-
-    .photo-slot {
-      aspect-ratio: 4/3;
-      background: var(--surface);
-      border: 1px solid var(--rule);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      gap: 0.5rem;
-      color: var(--warm-mid);
-      font-size: 0.68rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-    }
-    .photo-slot .slot-icon { font-size: 1.8rem; opacity: 0.35; }
-
+    /* ── CODA ── */
     .ouro-coda {
       font-family: 'Cormorant Garamond', serif;
       font-size: 1.1rem;
@@ -225,25 +250,39 @@
       animation: rise 1s ease 2s forwards;
     }
 
+    /* ── ANIMATIONS ── */
     @keyframes rise {
       from { opacity: 0; transform: translateY(14px); }
       to   { opacity: 1; transform: translateY(0); }
     }
 
+    @keyframes spin {
+      from { transform: translate(-50%, -50%) rotate(0deg); }
+      to   { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+
+    /* ── RESPONSIVE ── */
     @media (max-width: 600px) {
       .ouro-hero, .ouro-body { padding-left: 1.5rem; padding-right: 1.5rem; }
       .photo-grid { grid-template-columns: 1fr; }
+      /* Restore cursor on touch devices */
+      body { cursor: auto; }
+      .ouro-cursor { display: none; }
     }
   </style>
 </head>
 <body>
 
+  <!-- ROTATING CURSOR -->
+  <img src="ouro-favicon.png" class="ouro-cursor" id="ouroCursor" alt="" />
+
   <a href="/" class="back">← back</a>
 
+  <!-- HERO -->
   <div class="ouro-hero">
     <img src="ouro-favicon.png" alt="Studio Ouro" class="ouro-logo" />
-    <p class="ouro-epigraph">You found it. Welcome to Ouro.</p>
-    <p class="ouro-sub">Veni, vidi, vici.<br>Vegemite.</p>
+    <p class="ouro-sub">You found it. Welcome to Ouro.</p>
+    <p class="ouro-epigraph">Veni, vidi, vici.<br>Vegemite.</p>
   </div>
 
   <div class="ouro-body">
@@ -252,10 +291,8 @@
     <div class="ouro-section" style="--d: 0.5s">
       <span class="ouro-label">Where the name comes from</span>
 
-      <p>
-        The places hold the knowledge. The work is learning to listen to them.
-      </p>
-          
+      <p class="ouro-opening">The places hold the knowledge. The work is learning to listen to them.</p>
+
       <p>
         Digital placemaking is how communities, industries and governments co-produce the spaces we inhabit — through urban design, cultural programming, civic technology, community engagement and governance. It is also, increasingly, how the largest transitions of our time play out on the ground: renewable energy infrastructure landing in farming communities, data systems reshaping local decision-making, regenerative economies trying to take root in places the old economy left behind. These aren't purely technical questions. They are political, relational and deeply place-specific.
       </p>
@@ -295,14 +332,8 @@
       </p>
 
       <div class="photo-grid">
-        <div class="photo-slot">
-          <span class="slot-icon">🌿</span>
-          <span>place photo</span>
-        </div>
-        <div class="photo-slot">
-          <span class="slot-icon">🏡</span>
-          <span>place photo</span>
-        </div>
+        <img src="IMG_0733.jpeg" alt="Morning mist through eucalyptus, South Gippsland" />
+        <img src="IMG_0732.jpeg" alt="Hay bales in fog, South Gippsland" />
       </div>
     </div>
 
@@ -331,7 +362,7 @@
         Ouro is early. If you're working on something place-based and regenerative — or if you think there's something worth talking about — I'd like to hear from you.
       </p>
       <div class="ouro-contact">
-        <a href="mailto:isabelfangyilu@gmail.com">isabelfangyilu@gmail.com</a>
+        <a href="mailto:hellostudioouro@gmail.com">hellostudioouro@gmail.com</a>
         <a href="https://www.linkedin.com/in/isabel-fangyi-lu/" target="_blank" rel="noopener">LinkedIn</a>
       </div>
     </div>
@@ -339,6 +370,56 @@
     <p class="ouro-coda">此处是给真正好奇的行动者。你好。🐾</p>
 
   </div>
+
+  <script>
+    // ── ROTATING OURO CURSOR ──
+    const cursor = document.getElementById('ouroCursor');
+    let mouseX = 0, mouseY = 0;
+    let angle = 0;
+    let lastX = 0, lastY = 0;
+    let speed = 0;
+    let targetSpeed = 0.8; // base rotation degrees per frame
+    let currentSpeed = 0.8;
+    let rafId;
+
+    // Show cursor once mouse moves
+    document.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      cursor.style.opacity = '1';
+
+      // Calculate movement speed
+      const dx = mouseX - lastX;
+      const dy = mouseY - lastY;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      targetSpeed = Math.min(0.8 + dist * 0.15, 8); // faster when moving, capped at 8°/frame
+
+      lastX = mouseX;
+      lastY = mouseY;
+    });
+
+    // Hide cursor when it leaves the window
+    document.addEventListener('mouseleave', () => {
+      cursor.style.opacity = '0';
+    });
+
+    // Animation loop
+    function animate() {
+      // Smoothly ease toward target speed
+      currentSpeed += (targetSpeed - currentSpeed) * 0.08;
+      targetSpeed += (0.8 - targetSpeed) * 0.05; // decay back to base speed
+
+      angle += currentSpeed;
+
+      cursor.style.left = mouseX + 'px';
+      cursor.style.top = mouseY + 'px';
+      cursor.style.transform = `translate(-50%, -50%) rotate(${angle}deg)`;
+
+      rafId = requestAnimationFrame(animate);
+    }
+
+    animate();
+  </script>
 
 </body>
 </html>
